@@ -1,0 +1,14 @@
+#version 130
+
+uniform float timeIn;
+
+in vec2 pos;
+in vec3 colorIn;
+
+smooth out vec4 smoothColor;
+
+void main()
+{
+	gl_Position = vec4(pos, 0, 1);
+	smoothColor = vec4(colorIn, 1);
+}

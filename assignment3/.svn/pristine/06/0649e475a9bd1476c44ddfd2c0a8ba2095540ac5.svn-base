@@ -1,0 +1,137 @@
+#ifndef __RENDERENGINE
+#define __RENDERENGINE
+
+#include "GLHelper.h"
+#include "Square.h"
+
+class RenderEngine
+{
+public:
+	RenderEngine()
+	{
+		initialized = false;
+	}
+
+	~RenderEngine()
+	{
+		if(initialized)
+		{
+			// Clean up the buffers
+			glDeleteBuffers(1, &positionBuffer);
+			glDeleteBuffers(1, &colorBuffer);
+		}
+	}
+
+	void init()
+	{
+		initialized = true;
+		model = Square();
+		clk.Reset();
+
+		// glew will help us use GL functions, so set it up here
+		setupGlew();
+
+		//setup all shader parts
+		setupShader();
+
+		//setup buffers
+		setupBuffers();
+	}
+
+	void display(bool pickingEnabled=false)
+	{
+		GLfloat currentTime;
+
+		//clear the old frame
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		//use shader
+		glUseProgram(redProg);
+
+		//upload uniform
+		currentTime = clk.GetElapsedTime();
+		glUniform1f(timeSlot, currentTime);
+		
+		//setup position attribute
+		glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+		glEnableVertexAttribArray(positionSlot);
+		glVertexAttribPointer(positionSlot, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		
+		//color attribute
+		glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+		glEnableVertexAttribArray(colorSlot);
+		glVertexAttribPointer(colorSlot, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		
+		//draw model
+		glDrawArrays(GL_LINE_LOOP, 0, model.getVertexCount());
+		
+		//cleanup
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glDisableVertexAttribArray(positionSlot);
+		glDisableVertexAttribArray(colorSlot);
+
+		glUseProgram(0);
+	}
+
+private:
+	Square model;
+	bool initialized;
+
+	GLuint colorfulProg;
+	GLuint redProg;
+
+	GLuint positionBuffer;
+	GLuint colorBuffer;
+
+	GLint positionSlot;
+	GLint colorSlot;
+	GLint timeSlot;
+	sf::Clock clk;
+
+	void setupGlew()
+	{
+		glewExperimental = GL_TRUE;
+		GLenum err = glewInit();
+		if (GLEW_OK != err)
+		{
+			fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+			exit(1);
+		}
+		printf("Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	}
+
+	void setupShader()
+	{
+		char const * vertPath = "Shaders/simple.vert";
+		char const * redPath = "Shaders/alwaysRed.frag";
+
+		redProg = ShaderManager::shaderFromFile(&vertPath, &redPath, 1, 1);
+
+		// Find out where the shader expects the data
+		positionSlot = glGetAttribLocation(redProg, "pos");
+		colorSlot =    glGetAttribLocation(redProg, "colorIn");
+		timeSlot =    glGetUniformLocation(redProg, "timeIn");
+
+		checkGLError("shader");
+	}
+
+	void setupBuffers()
+	{
+		//setup position buffer
+		glGenBuffers(1, &positionBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+		glBufferData(GL_ARRAY_BUFFER, model.getPositionBytes(), model.getPosition(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Do the same thing for the color data
+		glGenBuffers(1, &colorBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+		glBufferData(GL_ARRAY_BUFFER, model.getColorBytes(), model.getColor(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		checkGLError("setup");
+	}
+};
+
+#endif

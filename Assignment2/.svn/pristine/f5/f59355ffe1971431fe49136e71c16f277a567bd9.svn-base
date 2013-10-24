@@ -1,0 +1,12 @@
+//Add your program1.cpp code to this file
+
+//Near the top, add an include to "ShaderManager.h"
+
+//Replace the shader setup calls with
+//calls to ShaderManager methods. See
+//the program1-shaderManager.cpp example
+//on the course webpage.
+
+//You can then remove the functions:
+//printProgramLinkLog()
+//printProgramCompileLog()

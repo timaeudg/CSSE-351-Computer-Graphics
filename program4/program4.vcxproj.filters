@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Glew">
+      <UniqueIdentifier>{6479e089-e0ff-481d-93ae-a3c2070ce1bb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\alwaysRed.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\simple.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glew\glew.c">
+      <Filter>Glew</Filter>
+    </ClCompile>
+    <ClCompile Include="program4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glew\glew.h">
+      <Filter>Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glxew.h">
+      <Filter>Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\wglew.h">
+      <Filter>Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="GLHelper.h" />
+    <ClInclude Include="RenderEngine.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Cube.h" />
+  </ItemGroup>
+</Project>

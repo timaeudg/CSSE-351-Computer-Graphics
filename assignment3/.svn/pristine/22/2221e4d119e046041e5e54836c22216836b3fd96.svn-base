@@ -1,0 +1,66 @@
+#ifndef __SQUARE
+#define __SQUARE
+
+#include "glew/glew.h"
+#include <vector>
+using namespace std; //makes using vectors easy
+
+class Square
+{
+public:
+
+	Square()
+	{
+		//triangle 1
+		positions.push_back(-0.25f);
+		positions.push_back(-0.25f);
+
+		positions.push_back(0.25f);
+		positions.push_back(-0.25f);
+
+		positions.push_back(0.25f);
+		positions.push_back(0.25f);
+
+		//triangle 2
+		positions.push_back(-0.25f);
+		positions.push_back(0.25f);
+
+		colors.push_back(1.0f);
+		colors.push_back(1.0f);
+		colors.push_back(0.3f);
+
+		colors.push_back(1.0f);
+		colors.push_back(0.0f);
+		colors.push_back(0.8f);
+
+		colors.push_back(0.0f);
+		colors.push_back(1.0f);
+		colors.push_back(0.8f);
+
+		colors.push_back(0.2f);
+		colors.push_back(0.1f);
+		colors.push_back(1.0f);
+	}
+
+	GLfloat const * getPosition() const
+	{ return &positions[0]; }
+
+	GLfloat const * getColor() const
+	{ return &colors[0]; }
+
+	size_t getVertexCount() const
+	{ return 4; }
+
+	size_t getPositionBytes() const
+	{ return positions.size()*sizeof(GLfloat); }
+
+	size_t getColorBytes() const
+	{ return colors.size()*sizeof(GLfloat); }
+	
+private:
+	vector<GLfloat> positions;
+	vector<GLfloat> colors;
+	size_t objectCount;
+};
+
+#endif
