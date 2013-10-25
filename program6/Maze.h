@@ -74,13 +74,24 @@ public:
 	{ return height; }
 	
 	bool bottomBlocked(unsigned int const & x, unsigned int const & y) const
-	{ return getCell(x,y).bottomBlocked(); }
+	{
+		if( x >= width || x < 0 || y >= height || y < 0) return false;
+		return getCell(x,y).bottomBlocked(); }
 	bool topBlocked(unsigned int const & x, unsigned int const & y) const
-	{ return getCell(x,y).topBlocked(); }
+	{
+		if( x >= width || x < 0 || y >= height || y < 0) return false;
+		return getCell(x,y).topBlocked(); 
+	}
 	bool leftBlocked(unsigned int const & x, unsigned int const & y) const
-	{ return getCell(x,y).leftBlocked(); }
+	{
+		if( x >= width || x < 0 || y >= height || y < 0) return false;
+		return getCell(x,y).leftBlocked(); 
+	}
 	bool rightBlocked(unsigned int const & x, unsigned int const & y) const
-	{ return getCell(x,y).rightBlocked(); }
+	{
+		if( x >= width || x < 0 || y >= height || y < 0) return false;
+		return getCell(x,y).rightBlocked(); 
+	}
 	
 private:
 	unsigned int width;

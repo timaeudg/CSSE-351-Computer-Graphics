@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="OBJ">
+      <UniqueIdentifier>{856d6fe8-48f7-46fe-9da7-511990b34181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{ad0c5742-fc51-4f05-a5aa-0922b90e2117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLEW">
+      <UniqueIdentifier>{b115d20b-e433-4b77-84d3-f8b3328ec137}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="obj_loader\FilePath.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="obj_loader\list.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="obj_loader\obj_parser.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="obj_loader\OBJMeshConvert.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="obj_loader\string_extra.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glew.h">
+      <Filter>GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glxew.h">
+      <Filter>GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\wglew.h">
+      <Filter>GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="GLHelper.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="ShowTexture.h" />
+    <ClInclude Include="Teapot.h" />
+    <ClInclude Include="TextureBufferObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="obj_loader\list.cpp">
+      <Filter>OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="obj_loader\obj_parser.cpp">
+      <Filter>OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="obj_loader\string_extra.cpp">
+      <Filter>OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="glew\glew.c">
+      <Filter>GLEW</Filter>
+    </ClCompile>
+    <ClCompile Include="GLHelper.cpp" />
+    <ClCompile Include="ShaderBoxMain.cpp" />
+    <ClCompile Include="Teapot.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Render3dModel.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Render3dModel.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\RenderTexture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\RenderTexture.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

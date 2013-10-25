@@ -8,7 +8,7 @@ static void checkGLError(char const * ident = "")
 	
 	if ((errCode = glGetError()) != GL_NO_ERROR) {
 		errString = gluErrorString(errCode);
-		fprintf (stderr, "OpenGL Error (%s): %s\n", ident, errString);
+		fprintf (stderr, "OpenGL Error (%s): %s\nCode: %d\n", ident, errString, errCode);
 	}
 }
 

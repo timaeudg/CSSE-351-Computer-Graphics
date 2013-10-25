@@ -31,7 +31,7 @@ public:
 	{
 		this->w = w;
 		this->h = h;
-		
+		clock.Reset();
 		setupGlew();
 		setupShader();
 		generateMaze();
@@ -75,6 +75,8 @@ public:
 
 		glUniformMatrix4fv(cameraSlot, 1, GL_FALSE, &C[0][0]);
 		glUniformMatrix4fv(perspectiveSlot, 1, GL_FALSE, &P[0][0]);
+		GLfloat t = clock.GetElapsedTime();
+		glUniform1f(timeSlot, t);
 
 		for(int k = 0; k < model.getElementCount(); k+=2){
 			GLuint first = model.getElements()[k];
@@ -116,6 +118,7 @@ public:
 	{
 		Maze mazeLayout(w, h, seed);
 		model = MazeModel(mazeLayout);
+		maze = mazeLayout;
 		
 		this->P = glm::ortho(-model.getUnitSize(), (w+1)*model.getUnitSize(), -model.getUnitSize(), (h+1)*model.getUnitSize());
 	
@@ -124,6 +127,8 @@ public:
 		else
 			setupBuffers();
 	}
+	
+	Maze maze;
 
 private:
 	MazeModel model;
@@ -143,6 +148,9 @@ private:
 	GLint cameraSlot;
 	GLint colorSlot;
 	GLint normSlot;
+	GLint timeSlot;
+
+	sf::Clock clock;
 	
 	unsigned int w;
 	unsigned int h;
@@ -175,6 +183,7 @@ private:
 		cameraSlot = glGetUniformLocation(shaderProg, "C");
 		colorSlot = glGetAttribLocation(shaderProg, "color");
 		normSlot = glGetAttribLocation(shaderProg, "norm");
+		timeSlot = glGetUniformLocation(shaderProg, "time");
 
 		checkGLError("shader");
 	}

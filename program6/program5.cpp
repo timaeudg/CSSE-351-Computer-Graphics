@@ -53,8 +53,35 @@ public:
 			}
 			delta = 0.05;
 			if(input.IsKeyDown(sf::Key::Up)) {
+				vec3 oldCamera = camera;
+				vec3 oldTarget = target;
 				camera = camera+delta*(target - camera);
 				target = glm::normalize(target - camera)+camera;
+				//going up is blocked
+				if( (render.maze.topBlocked(floor(camera.x), floor(camera.y)) || 
+					render.maze.bottomBlocked(floor(camera.x), ceil(camera.y))) &&
+					((camera.y - floor(camera.y)) > 0.75)) {
+						camera = oldCamera;
+						target = oldTarget;
+				}
+				if( (render.maze.bottomBlocked(floor(camera.x), floor(camera.y)) || 
+					render.maze.topBlocked(floor(camera.x), floor(camera.y)-1)) &&
+					((camera.y - floor(camera.y)) < 0.25)) {
+						camera = oldCamera;
+						target = oldTarget;
+				}
+				if( (render.maze.rightBlocked(floor(camera.x), floor(camera.y)) || 
+					render.maze.leftBlocked(ceil(camera.x), floor(camera.y))) &&
+					((camera.x - floor(camera.x)) > 0.75)) {
+						camera = oldCamera;
+						target = oldTarget;
+				}
+				if( (render.maze.leftBlocked(floor(camera.x), floor(camera.y)) || 
+					render.maze.rightBlocked(floor(camera.x)-1, floor(camera.y))) &&
+					((camera.x - floor(camera.x)) < 0.25)) {
+						camera = oldCamera;
+						target = oldTarget;
+				}
 			}
 			if(input.IsKeyDown(sf::Key::Down)) {
 				camera = camera-delta*(target - camera);

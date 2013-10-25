@@ -9,15 +9,39 @@ in vec3 pos;
 in vec3 color;
 in vec3 norm;
 
+varying float d;
+varying float s;
+
+vec4 lightPos = vec4(4, 0, 0, 1);
+
 varying vec4 smoothColor;
-//in vec2 pos;
+varying vec4 surfaceNormal;
+varying vec4 lightVector;
+varying vec4 viewVector;
+
+mat4 rotateY(float a){
+
+	return mat4(1, 0, 0, 0,
+		        0, 1, 0, 0,
+				0, 0, 1, 0,
+				4, 8, 4, 0)*mat4(
+			cos(a), sin(a), 0, 0,
+			-sin(a), cos(a), 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1);
+
+}
 
 void main()
 {	
-	
+	vec4 p = C*M*vec4(pos, 1);
+	mat4 lightR = rotateY(time*0.6);
+	vec4 lPos = C*lightR*lightPos;
+
+	surfaceNormal = C*M*vec4(norm,0);
+	lightVector = normalize(lPos - p);
+	viewVector = normalize(-p);
 	smoothColor = vec4(color, 1);
-	smoothColor = M*vec4(norm, 0);
-	smoothColor = smoothColor + vec4(0,0,0,1);
-	vec4 p = vec4(pos, 1);
-	gl_Position = P*C*M*p;
+
+	gl_Position = P*p;
 }
